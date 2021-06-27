@@ -1,0 +1,71 @@
+body{
+    background-color: #edf2f7;
+    padding: 30px;
+}
+
+input[type=submit] {
+    padding:5px 15px;
+    background:#ccc;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/*$container*/
+
+body .container{
+    width: 70%;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 5px solid #ececec;
+    border-radius: 10px;
+    vertical-align:middle;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.container h2{
+    text-align: center;
+}
+
+
+/*$new-post*/
+.new-post{
+    background-color: lightblue;
+    border-radius: 10px;
+    border: 2px solid #ececec;
+    padding: 20px 20px;
+}
+
+.new-post .input{
+    border-radius: 10px;
+    border: 2px solid #ececec;
+    width: 100%;
+}
+
+/*$feed*/
+.feed{
+    clear: left;
+    background-color: #fbffc6;
+    border-radius: 10px;
+    border: 2px solid #ececec;
+    padding: 15px 15px;
+}
+
+.feed #post{
+    background-color: #ffdf68;
+    border-radius: 10px;
+    border: 2px solid #ececec;
+    padding: 15px 15px;
+    width: 100%;
+}
+
+.feed #fixed, .feed #title, .feed #description{
+    background-color: #ffffff;
+    border-radius: 10px;
+    border: 2px solid #ececec;
+}
+
+.feed #title{
+    width: 70%;
+}
