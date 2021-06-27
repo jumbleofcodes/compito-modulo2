@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -20,18 +19,26 @@ class Post extends Model
      */
     protected $table = 'posts';
 
+
     /**
-     * set fillable fields for filtering
+     * The attributes that should be cast to native types.
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'user_id', 'id'];
+    protected $casts = [
+        'tagged_users' => 'array'
+    ];
 
     /**
-     * set string fields for filtering
+     * The attributes that are mass assignable.
+     *
      * @var array
      */
-    protected $likeFilterFields = ['title', 'description'];
+    protected $fillable = [
+        'title',
+        'description',
+        'tagged_users',
+    ];
 
 
 
@@ -47,13 +54,4 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    /**
-     * Get tags
-     * @return BelongsToMany
-     */
-    public function tags() : BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class);
-    }
 }

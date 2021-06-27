@@ -8,7 +8,9 @@ use App\Http\Requests\PostIndexRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
 use App\Models\Post;
+use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
@@ -68,6 +70,14 @@ class PostController extends Controller
             $post->description = $request->description;
             $post->author_id = Auth::id();
 
+            if ($request->has('tagged_users')) {
+                $users_array = [];
+                foreach ($request->tagged_users as $tagged_user) {
+                    array_push($users_array, new UserResource(User::where('name', $tagged_user)->firstOrFail()));
+                }
+                $post->tagged_users = $users_array;
+            }
+
             $post->save();
 
             DB::commit();
@@ -91,12 +101,19 @@ class PostController extends Controller
         DB::beginTransaction();
 
         try {
-            if (Auth::user()->id != $post->author_id) {
+            if (Auth::id() != $post->author_id) {
                 throw new Exception("Cannot update this post");
             }
 
             $post->update($request->only(['title', 'description']));
 
+            if ($request->has('tagged_users')) {
+                $users_array = [];
+                foreach ($request->tagged_users as $tagged_user) {
+                    array_push($users_array, new UserResource(User::where('name', $tagged_user)->firstOrFail()));
+                }
+                $post->tagged_users = $users_array;
+            }
             $post->save();
 
             DB::commit();
@@ -123,7 +140,7 @@ class PostController extends Controller
         DB::beginTransaction();
 
         try {
-            if (Auth::user()->id != $post->author_id) {
+            if (Auth::id() != $post->author_id) {
                 throw new Exception("Cannot delete this post");
             }
 

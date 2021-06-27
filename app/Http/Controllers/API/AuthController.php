@@ -10,6 +10,7 @@ use App\Http\Resources\AuthLoginResource;
 use App\Http\Resources\AuthRegisterResource;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -22,7 +23,6 @@ class AuthController extends Controller
      *
      * @param AuthRegisterRequest $request
      * @return AuthRegisterResource
-     * @throws ValidationException
      * @throws Exception
      */
     public function register(AuthRegisterRequest $request): AuthRegisterResource
@@ -63,7 +63,7 @@ class AuthController extends Controller
      * Attempt logout
      *
      * @param AuthLogoutRequest $request
-     * @return JSON
+     * @return JsonResponse
      */
 
     public function logout(AuthLogoutRequest $request)

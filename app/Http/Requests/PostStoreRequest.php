@@ -18,6 +18,16 @@ class PostStoreRequest extends FormRequest
     }
 
     /**
+     * Prepare data for validation
+     */
+    protected function prepareForValidation()
+    {
+        if ($this->has('tagged_users')) {
+            $this->merge(['tagged_users' => explode(',', $this->tagged_users)]);
+        }
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -28,6 +38,8 @@ class PostStoreRequest extends FormRequest
         return [
             'title'=>'required|string',
             'description' =>'required|string',
+            'tagged_users' => 'sometimes|array|nullable',
+            'tagged_users.*' => 'sometimes|exists:users,name'
         ];
     }
 }

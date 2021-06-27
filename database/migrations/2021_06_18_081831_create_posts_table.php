@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->longText('description')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->foreign('author_id')->references('id')->on('users')->onCascade('delete');
+            $table->json('tagged_users')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

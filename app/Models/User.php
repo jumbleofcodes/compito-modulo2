@@ -55,7 +55,7 @@ class User extends Authenticatable
 
 
 
-    //*******RELATIONS***************************** */
+    //*******RELATIONS********* */
     /**
      *
      * Get posts
