@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostDestroyRequest;
 use App\Http\Requests\PostIndexRequest;
+use App\Http\Requests\PostShowRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Http\Resources\PostResource;
@@ -14,6 +15,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -125,6 +127,7 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -153,5 +156,17 @@ class PostController extends Controller
         }
 
         return response(null, 204);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param PostShowRequest $request
+     * @param Post $post
+     * @return PostResource
+     */
+    public function show(PostShowRequest $request, Post $post): PostResource
+    {
+        return new PostResource($post);
     }
 }

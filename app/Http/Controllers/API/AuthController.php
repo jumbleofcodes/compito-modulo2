@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthLoginRequest;
 use App\Http\Requests\AuthLogoutRequest;
 use App\Http\Requests\AuthRegisterRequest;
+use App\Http\Requests\AuthUserRequest;
 use App\Http\Resources\AuthLoginResource;
 use App\Http\Resources\AuthRegisterResource;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -72,6 +74,15 @@ class AuthController extends Controller
         return response()->json(['message' => 'User successfully signed out.']);
     }
 
-
+    /**
+     * Get logged user
+     *
+     * @param AuthUserRequest $request
+     * @return UserResource
+     */
+    public function user(AuthUserRequest $request): UserResource
+    {
+        return new UserResource(Auth::user());
+    }
 
 }
